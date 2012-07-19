@@ -13,11 +13,10 @@ body {background-color: #672515;}
 <?php
 session_start();
 if (isset($_POST['submit'])){
-     $db = mysql_connect ("localhost","root","1");
-        mysql_select_db ("test",$db);
+     $bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
          if (!empty($_POST['login']) && !empty($_POST['password']) && !empty($_POST ['email'])) {
-          $result = mysql_query ('SELECT id FROM users WHERE login = "' . $_POST['login'] . '"');
-          $row = mysql_fetch_assoc ($result);
+          $sel =  $bd->query('SELECT id FROM users WHERE login = "' . $_POST['login'] . '"');
+          $row = $sel->fetch(PDO::FETCH_ASSOC);
          
           if ($_POST['password'] !== $_POST['pass'])  {
            exit ("Неправльний пароль");    
@@ -88,13 +87,13 @@ $upload_and_resize = "";
 }
  echo $upload_and_resize;
           $id_dates = date('Y-m-d H:i:s');
-          $query = 'INSERT INTO users (id, login, password, role, email, time) VALUES (NULL, "' . $_POST['login'] . '", "' . $_POST['password'] . '", 1,
-          "' . $_POST['email'] . '", "' . $id_dates . '")';
+          $insert = $bd->exec ('INSERT INTO users (id, login, password, role, email, time) VALUES (NULL, "' . $_POST['login'] . '", "' . $_POST['password'] . '", 1,
+          "' . $_POST['email'] . '", "' . $id_dates . '")');
          }
          else {
          print 'Please, enter all fields!'; 
          }
-if (mysql_query($query))
+if ($insert)
 {    
     $_SESSION['role'] = 1;
     $_SESSION['login'] = $_POST['login'];
@@ -106,8 +105,8 @@ if (mysql_query($query))
 ?>
 
 
-<ins><a href="reg_ukr.php">Укр</a></ins>
-<ins><a href="reg.php">Англ</a></ins>
+<ins><a href="reg_ukr.php"><img src="images/ua.png" alt="" /></a></ins>
+<ins><a href="reg.php"><img src="images/gb.png" alt="" /></a></ins>
 <ins><a href="index_ukr.php">Головна</a></ins>  
     <h2>Реєстрація</h2>
     <form action="./reg_ukr.php?do=upload" method="post" enctype="multipart/form-data">

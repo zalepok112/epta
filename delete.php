@@ -12,11 +12,9 @@ body {background-color: #672515;}
 
 <?php
 if(isset($_POST['Yes'])){
-  $con = mysql_connect("localhost","root","1");
-  mysql_select_db("test", $con);
-  $query = 'DELETE FROM users WHERE `id` = "' . $_GET['id'] . '"';
-  mysql_query($query) or die(mysql_error());
-  mysql_close($con);
+  $bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
+  $del = $bd->exec('DELETE FROM users WHERE `id` = "' . $_GET['id'] . '"');
+  $bd = NULL;
   print '<meta http-equiv="refresh" content="0; url=adminka.php">';
 }
 elseif(isset($_POST['No'])){

@@ -12,17 +12,14 @@ body {background-color: #672515;}
 
 
 <?php
-$con = mysql_connect("localhost","root","1");
-mysql_select_db("test", $con);
-$query = 'SELECT * FROM users WHERE `id` = "' . $_GET['id'] . '"';
-$result = mysql_query($query) or die(mysql_error());
-$row = mysql_fetch_assoc($result);
+$bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
+$sel = $bd->query('SELECT * FROM users WHERE `id` = "' . $_GET['id'] . '"');
+$row = $sel->fetch(PDO::FETCH_ASSOC);
 if(isset($_POST['submit'])){
-  $query = 'UPDATE users SET role="' . $_POST['role'] . '" WHERE `id` = ' .$_GET['id'];
-  mysql_query($query) or die(mysql_error());
+  $update = $bd->exec('UPDATE users SET role="' . $_POST['role'] . '" WHERE `id` = "' . $_GET['id'] . '"');
+  $bd = NULL;
   print '<meta http-equiv="refresh" content="0; url=adminka.php">';
 }
-mysql_close($con);
 ?>
 
 

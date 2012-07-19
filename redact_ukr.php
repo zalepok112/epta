@@ -11,23 +11,23 @@ body {background-color: #672515;}
 <body>
 
 <?php
-$con = mysql_connect("localhost","root","1");
-mysql_select_db("test", $con);
-$query = 'SELECT * FROM content WHERE `id` = ' .$_GET['id'];
-$result = mysql_query($query) or die(mysql_error());
-$row = mysql_fetch_assoc($result);
+$bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
+$sel = $bd->query('SELECT * FROM content WHERE `id` = "' . $_GET['id'] . '"');
+$row = $sel->fetch(PDO::FETCH_ASSOC);
 if(isset($_POST['submit'])){
-  $query = 'UPDATE content SET title="' . $_POST['title'] . '", text="' . $_POST['text'] . '" WHERE `id` = ' .$_GET['id'];
-  mysql_query($query) or die(mysql_error());
+  $update = $bd->exec('UPDATE content SET title="' . $_POST['title'] . '", text="' . $_POST['text'] . '",
+                    title_ukr="' . $_POST['title_ukr'] . '", text_ukr="' . $_POST['text_ukr'] . '" WHERE `id` = ' .$_GET['id']);
+  $bd = NULL;
   print '<meta http-equiv="refresh" content="0; url=kontent_ukr.php">';
 }
-mysql_close($con);
 ?>
 
 <ins><a href="index_ukr.php">Home</a><br /><br /></ins>
 <form action="redact_ukr.php?id=<?php print $_GET['id']?>" method="post">
 <p><input type="text" name="title" value="<?php print $row['title']?>" /><br /></p>
-<textarea name="text" cols="150" rows="15" maxlehgth="1500" ><?php print $row['text']?></textarea>
+<p><textarea name="text" cols="50" rows="6" maxlehgth="255" ><?php print $row['text']?></textarea></p>
+<p><input type="text" name="title_ukr" value="<?php print $row['title_ukr']?>" /><br /></p>
+<p><textarea name="text_ukr" cols="50" rows="6" maxlehgth="255" ><?php print $row['text_ukr']?></textarea></p>
 <p><br /><input type="submit" name="submit" value="Зберегти" />
 </p>
 </form>

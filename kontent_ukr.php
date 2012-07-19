@@ -6,24 +6,27 @@
 <title></title>
 <style type="text/css">
 body {background-color: #672515;}
+P.olo      {float: right;}
 </style>
 </head>
 <body>
 
+<p class="olo">
+<ins><a href="kontent_ukr.php"><img src="images/ua.png" alt="" /></a></ins>
+<ins><a href="kontent.php"><img src="images/gb.png" alt="" /></a></ins>
+</p>
+
 <?php
-    $con = mysql_connect("localhost","root","1");
-    mysql_select_db("test", $con);
-    $query = 'SELECT * FROM content';
-    $result = mysql_query($query) or die(mysql_error());
-    while ($row = mysql_fetch_assoc($result)) {
-      print '<p>id: ' . $row['id'] . ' Заголовок: ' . $row['title'] . '<a href="del_ukr.php?id=' . $row['id'] . '"> Видалити </a><a href="redact_ukr.php?id=' . $row['id'] . '"> Редагувати </a><br /></p>';
+    $bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
+    $sel = $bd->query('SELECT * FROM content');
+    while ($row = $sel->fetch(PDO::FETCH_ASSOC)){
+      print '<p>id: ' . $row['id'] . ' Заголовок(Англ): ' . $row['title'] . ' Заголовок(Укр): ' . $row['title_ukr'] . '
+             <a href="del_ukr.php?id=' . $row['id'] . '"> Видалити </a><a href="redact_ukr.php?id=' . $row['id'] . '"> Редагувати </a><br /></p>';
     }
 ?>
 
 <ins><a href="text_ukr.php">Додати інфу</a></ins>
-<ins><a href="kontent_ukr.php">Укр</a></ins>
-<ins><a href="kontent.php">Англ</a></ins>
-<ins><a href="index.php">Головна</a></ins>
+<ins><a href="index_ukr.php">Головна</a></ins>
 </body>
 </html>
     

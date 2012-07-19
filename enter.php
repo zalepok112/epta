@@ -13,15 +13,12 @@ body {background-color: #672515;}
 <?php
     session_start();
     if (isset($_POST['submit']) && !empty($_POST['login']) && !empty($_POST['password'])){
-        $db = mysql_connect ("localhost","root","1");
-        mysql_select_db ("test",$db);
+        $bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
         $id_dates2 = date('Y-m-d H:i:s');
-        $query1 = 'UPDATE users SET time2 = "' . $id_dates2 . '" WHERE `login` = "' . $_POST['login'] . '"';
-        mysql_query($query1);
-        $query = 'SELECT * FROM users WHERE login = "' . $_POST['login'] . '"';
-        if (mysql_query($query)) {
-            $res = mysql_query($query);
-            $row = mysql_fetch_assoc($res);
+        $update = $bd->exec('UPDATE users SET time2 = "' . $id_dates2 . '" WHERE `login` = "' . $_POST['login'] . '"');
+        $sel =  $bd->query('SELECT * FROM users WHERE login = "' . $_POST['login'] . '"');
+        if ($sel) {
+            $row = $sel->fetch(PDO::FETCH_ASSOC);
             if ($_POST['password'] == $row['password']) {
                 $_SESSION['role'] = $row['role'];
                 $_SESSION['password'] = $_POST['password'];
@@ -38,8 +35,8 @@ body {background-color: #672515;}
     }
 ?>
 
-<ins><a href="enter_ukr.php">Ukr</a></ins>
-<ins><a href="enter.php">Eng</a></ins>
+<ins><a href="enter_ukr.php"><img src="images/ua.png" alt="" /></a></ins>
+<ins><a href="enter.php"><img src="images/gb.png" alt="" /></a></ins>
 <ins><a href="index.php">Home</a></ins>
     <h2>Enter</h2>
     <form action="enter.php" method="post">

@@ -13,24 +13,23 @@ P.olo {float: right;}
 
 <?php
 session_start();
-$con = mysql_connect("localhost","root","1");
-mysql_select_db("test", $con);
-$query = 'SELECT * FROM users WHERE `login`="' . $_SESSION['login'] . '"';
-$result = mysql_query($query) or die(mysql_error());
-$row = mysql_fetch_assoc($result);
+$bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
+$sel = $bd->query('SELECT * FROM users WHERE `login`="' . $_SESSION['login'] . '"');
+$row = $sel->fetch(PDO::FETCH_ASSOC);
 if(isset($_POST['submit'])){
   
-  $query = 'UPDATE users SET login="' . $_POST['login'] . '", password="' . $_POST['password'] . '", email="' . $_POST['email'] . '",
+  $update = $bd->exec('UPDATE users SET login="' . $_POST['login'] . '", password="' . $_POST['password'] . '", email="' . $_POST['email'] . '",
             name="' . $_POST['name'] . '", surname="' . $_POST['surname'] . '", date="' . $_POST['date'] . '"
-            WHERE `login` = "' . $_SESSION['login'] . '"';
-  mysql_query($query) or die(mysql_error());
+            WHERE `login` = "' . $_SESSION['login'] . '"');
+  $bd = NULL;
   print 'Зміни збережено';
+  print '<meta http-equiv="refresh" content="0; url=index_ukr.php">';
   }
   
 ?>
 <p class="olo"><ins><a href="delete_user_ukr.php?id=<?php print $row['login']?>">Видалити вашу сторінку</a></ins></p>
-<ins><a href="user_ukr.php">Укр</a></ins>
-<ins><a href="user.php">Англ</a></ins>
+<ins><a href="user_ukr.php"><img src="images/ua.png" alt="" /></a></ins>
+<ins><a href="user.php"><img src="images/gb.png" alt="" /></a></ins>
 <ins><a href="index_ukr.php">Головна</a></ins>  
     <p>
     <label>Дата реєстрації:<br /></label>
@@ -56,15 +55,15 @@ if(isset($_POST['submit'])){
     </p>
     <p>
     <label>Ім'я:<br /></label>
-    <input name="name" type="text" value="<?php print $row['email']?>" />
+    <input name="name" type="text" value="<?php print $row['name']?>" />
     </p>
     <p>
     <label>Прізвище:<br /></label>
-    <input name="surname" type="text" value="<?php print $row['email']?>" />
+    <input name="surname" type="text" value="<?php print $row['surname']?>" />
     </p>
     <p>
     <label>Дата народження:<br /></label>
-    <input name="date" type="text" value="<?php print $row['email']?>" />
+    <input name="date" type="text" value="<?php print $row['date']?>" />
     </p>
     <p>
     <input type="submit" name="submit" value="Зберегти" />

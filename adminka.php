@@ -11,18 +11,17 @@ body {background-color: #672515;}
 <body>
 
 <?php
-    $con = mysql_connect("localhost","root","1");
-    mysql_select_db("test", $con);
-    $query = 'SELECT * FROM users';
-    $result = mysql_query($query) or die(mysql_error());
-    while ($row = mysql_fetch_assoc($result)) {
+    $bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
+    $sel = $bd->query('SELECT * FROM users');
+    while ($row = $sel->fetch(PDO::FETCH_ASSOC))
+    {
       print '<p>id: ' . $row['id'] . ' User: ' . $row['login'] . ' Rights: ' . $row['role'] . ' email: ' . $row['email'] . '
       <a href="delete.php?id=' . $row['id'] . '"> Delete </a><a href="edit.php?id=' . $row['id'] . '"> Edit </a><br /></p>';
     }
 ?>
 
-<ins><a href="adminka_ukr.php">Ukr</a></ins>
-<ins><a href="adminka.php">Eng</a></ins>
+<ins><a href="adminka_ukr.php"><img src="images/ua.png" alt="" /></a></ins>
+<ins><a href="adminka.php"><img src="images/gb.png" alt="" /></a></ins>
 <ins><a href="index.php">Home</a></ins>
 </body>
 </html>

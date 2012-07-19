@@ -6,6 +6,7 @@
 <title></title>
 <style type="text/css">
 body {background-color: #672515;}
+P.olo      {float: right;}
 P.middle   {text-align: justify; font-size: 18; font-family: UkrainianIzhitsa,Tahoma; text-indent: 30; font-style: normal; color: #eeccaa; line-height: 25px;}
 a:HOVER    {color: #B0CDDC; font-style: italic; style=text-decoration:none}
 a:link     {color: #ff8e51;}
@@ -22,11 +23,15 @@ P.big1     {font-family: Tahoma; font-style: normal; text-align: center; text-de
 </head>
 <body>
 
+<p class="olo">
+<ins><a href="index1_ukr.php"><img src="images/ua.png" alt="" /></a></ins>
+<ins><a href="index1.php"><img src="images/gb.png" alt="" /></a></ins>
+</p>
+    
 <?php
 session_start();
-    $db = mysql_connect ("localhost","root","1");
-    mysql_select_db ("test",$db);
-    $query = 'SELECT * FROM users WHERE `password`="' . $_SESSION['password'] . '"';
+    $bd = new PDO('mysql:host=localhost;dbname=test', 'root', '1'); 
+    $sel = $bd->query('SELECT * FROM `users` WHERE `password`="' . $_SESSION['login'] . '"');
     
         if ($_SESSION['role'] == 4) {
            print '<ins><a href="exit.php"> Exit</a><br /><br /></ins>
@@ -54,25 +59,23 @@ session_start();
                    <ins><a href="reg.php"> Registration</a></ins>
                    <p>guest <br /><br /></p>';
         }
-  $content = 'SELECT * FROM content';
-    $result = mysql_query($content) or die(mysql_error());
-    while ($row = mysql_fetch_assoc($result)) {
+  $sel2 = $bd->query('SELECT * FROM `content`');
+  $res = $bd->query('SELECT * FROM `content`');
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
       $rest = substr($row['text'], 0, 150);
        if (substr($rest, -1) != ' ') {
         $rest = substr($rest, 0, strrpos($rest, ' '));
-      print '<p>' . $row['title'] . '<br />' .  $rest . '<br /><br /></p>';
+      print '<h2><p class="middle"><a href="article.php?id=' . $row['id'] . '">' . $row['title'] . '</a><br /></p></h2>
+             <p class="middle">' .  $rest . '<br /><br /></p>';
       }
     }
     
 ?>
 
 
-<ins><a href="index1_ukr.php">Ukr</a></ins>
-<ins><a href="index1.php">Eng</a></ins>
-
-<p class="big">
+<h1><p class="big">
 Organisation and government
-</p>
+</p></h1>
 
 <p class="picture1">
 <img src="sich_mal2.gif" />

@@ -6,6 +6,7 @@
 <title></title>
 <style type="text/css">
 body {background-color: #672515;}
+P.olo      {float: right;}
 P.middle   {text-align: justify; font-size: 18; font-family: UkrainianIzhitsa,Tahoma; text-indent: 30; font-style: normal; color: #eeccaa; line-height: 25px;}
 a:HOVER    {color: #B0CDDC; font-style: italic; style=text-decoration:none}
 a:link     {color: #ff8e51;}
@@ -21,12 +22,16 @@ P.big1     {font-family: Tahoma; font-style: normal; text-align: center; text-de
 </style>
 </head>
 <body>
+
+<p class="olo">
+<ins><a href="index_ukr.php"><img src="images/ua.png" alt="" /></a></ins>
+<ins><a href="index.php"><img src="images/gb.png" alt="" /></a></ins>
+</p>
     
 <?php
 session_start();
-    $db = mysql_connect ("localhost","root","1");
-    mysql_select_db ("test",$db);
-    $query = 'SELECT * FROM users WHERE `password`="' . $_SESSION['password'] . '"';
+    $bd = new PDO('mysql:host=localhost;dbname=test', 'root', '1'); 
+    $sel = $bd->query('SELECT * FROM `users` WHERE `password`="' . $_SESSION['login'] . '"');
     
         if ($_SESSION['role'] == 4) {
            print '<ins><a href="exit.php"> Exit</a><br /><br /></ins>
@@ -37,12 +42,12 @@ session_start();
             print '<ins><a href="adminka.php"> Admin Panel</a></ins>
                    <ins><a href="kontent.php"> Content</a></ins>
                    <ins><a href="exit.php"> Exit</a></ins>
-                   <p>admin <br /><br /></p>';
+                   <p>admin </p>';
         }
         elseif ($_SESSION['role'] == 2) {
             print '<ins><a href="kontent.php"> Content</a></ins>
                    <ins><a href="exit.php"> Exit</a></ins>
-                   <p>content adm <br /><br /></p>';
+                   <p>content adm </p>';
         }
         elseif ($_SESSION['role'] == 1) {
             print '<ins><a href="exit.php"> Exit</a><br /><br /></ins>
@@ -52,27 +57,24 @@ session_start();
     else {
             print '<ins><a href="enter.php"> Log in</a></ins>
                    <ins><a href="reg.php"> Registration</a></ins>
-                   <p>guest <br /><br /></p>';
+                   <p>guest </p>';
         }
-  $content = 'SELECT * FROM content';
-    $result = mysql_query($content) or die(mysql_error());
-    while ($row = mysql_fetch_assoc($result)) {
+  $sel2 = $bd->query('SELECT * FROM `content`');
+   while ($row = $sel2->fetch(PDO::FETCH_ASSOC)) {
       $rest = substr($row['text'], 0, 150);
        if (substr($rest, -1) != ' ') {
         $rest = substr($rest, 0, strrpos($rest, ' '));
-      print '<p>' . $row['title'] . '<br />' .  $rest . '<br /><br /></p>';
+      print '<h2><p class="middle"><a href="article.php?id=' . $row['id'] . '">' . $row['title'] . '</a></p></h2>
+             <p class="middle">' .  $rest . '</p>';
       }
     }
     
 ?>
 
 
-<ins><a href="index_ukr.php">Ukr</a></ins>
-<ins><a href="index.php">Eng</a></ins>
-
-<p class="big">
+<h1><p class="big">
 The Formation of Sitch
-</p>
+</p></h1>
 
 <p class="picture">
 <img src="sich_mal1.gif" alt="" />

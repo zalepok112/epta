@@ -12,11 +12,9 @@ body {background-color: #672515;}
 
 <?php
 if(isset($_POST['Yes'])){
-  $con = mysql_connect("localhost","root","1");
-  mysql_select_db("test", $con);
-  $query = 'DELETE FROM content WHERE `id` = "' . $_GET['id'] . '"';
-  mysql_query($query) or die(mysql_error());
-  mysql_close($con);
+  $bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
+  $del = $bd->exec('DELETE FROM content WHERE `id` = "' . $_GET['id'] . '"');
+  $bd = NULL;
   print '<meta http-equiv="refresh" content="0; url=kontent_ukr.php">';
 }
 elseif(isset($_POST['No'])){
@@ -27,8 +25,7 @@ elseif(isset($_POST['No'])){
 <ins><a href="index_ukr.php">Головна</a><br /><br /></ins>
 <p>Ви впевнені?</p>
 <form action="del_ukr.php?id=<?php print $_GET['id']?>" method="post">
-<p><input type="submit" name="Yes" value="Так" /></p>
-<p><input type="submit" name="No" value="Ні" /></p>
+<p><input type="submit" name="Yes" value="Так" /><input type="submit" name="No" value="Ні" /></p>
 </form>
 </body>
 </html>
