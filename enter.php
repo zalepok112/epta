@@ -15,6 +15,9 @@ body {background-color: #672515;}
     if (isset($_POST['submit']) && !empty($_POST['login']) && !empty($_POST['password'])){
         $db = mysql_connect ("localhost","root","1");
         mysql_select_db ("test",$db);
+        $id_dates2 = date('Y-m-d H:i:s');
+        $query1 = 'UPDATE users SET time2 = "' . $id_dates2 . '" WHERE `login` = "' . $_POST['login'] . '"';
+        mysql_query($query1);
         $query = 'SELECT * FROM users WHERE login = "' . $_POST['login'] . '"';
         if (mysql_query($query)) {
             $res = mysql_query($query);
@@ -22,6 +25,7 @@ body {background-color: #672515;}
             if ($_POST['password'] == $row['password']) {
                 $_SESSION['role'] = $row['role'];
                 $_SESSION['password'] = $_POST['password'];
+                $_SESSION['login'] = $_POST['login'];
                 print '<meta http-equiv="refresh" content="0; url=index.php">';
             }
             else {

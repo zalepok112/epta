@@ -28,7 +28,12 @@ session_start();
     mysql_select_db ("test",$db);
     $query = 'SELECT * FROM users WHERE `password`="' . $_SESSION['password'] . '"';
     
-        if ($_SESSION['role'] == 3) {
+        if ($_SESSION['role'] == 4) {
+           print '<ins><a href="exit.php"> Exit</a><br /><br /></ins>
+                   <p><ins><a href="user.php?id=' . $_SESSION['login'] . '">' . $_SESSION['login'] . '</a></ins> - You are banned!</p>';
+        }
+        
+        elseif ($_SESSION['role'] == 3) {
             print '<ins><a href="adminka.php"> Admin Panel</a></ins>
                    <ins><a href="kontent.php"> Content</a></ins>
                    <ins><a href="exit.php"> Exit</a></ins>
@@ -40,8 +45,8 @@ session_start();
                    <p>content adm <br /><br /></p>';
         }
         elseif ($_SESSION['role'] == 1) {
-            print '<ins><a href="exit.php"> Exit</a></ins>
-                   <p>user <br /><br /></p>';
+            print '<ins><a href="exit.php"> Exit</a><br /><br /></ins>
+                   <ins><a href="user.php?id=' . $_SESSION['login'] . '">' . $_SESSION['login'] . '</a></ins>';
         }
         
     else {

@@ -11,24 +11,25 @@ body {background-color: #672515;}
 <body>
 
 <?php
+session_start();
 if(isset($_POST['Yes'])){
   $con = mysql_connect("localhost","root","1");
   mysql_select_db("test", $con);
-  $query = 'DELETE FROM users WHERE `id` = "' . $_GET['id'] . '"';
+  $query = 'DELETE FROM users WHERE `login` = ' . $_SESSION['login'];
   mysql_query($query) or die(mysql_error());
   mysql_close($con);
-  print '<meta http-equiv="refresh" content="0"; url="adminka_ukr.php">';
+  print '<meta http-equiv="refresh" content="0; url=user_ukr.php">';
+  session_unset();
 }
 elseif(isset($_POST['No'])){
-  print '<meta http-equiv="refresh" content="0"; url="adminka_ukr.php">';
+  print '<meta http-equiv="refresh" content="0; url=<a href="user_ukr.php?id=' . $_SESSION['login'] . '">' . $_SESSION['login'] . '</a>"';
 }
 ?>
 
 <ins><a href="index_ukr.php">Головна</a><br /><br /></ins>
-<h2>Ви впевнені?</h2>
-<form action= "delete_ukr.php?id=<?php print $_GET['id']?>" method="post">
-<p><input type="submit" name="Yes" value="Так" /></p>
-<p><input type="submit" name="No" value="Ні" /></p>
+<p>Ви впевнені?</p>
+<form action="delete_user_ukr.php?id=<?php print $_SESSION['login']?>" method="post">
+<p><input type="submit" name="Yes" value="Так" /><input type="submit" name="No" value="Ні" /></p>
 </form>
 </body>
 </html>

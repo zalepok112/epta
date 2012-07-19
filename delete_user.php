@@ -11,22 +11,24 @@ body {background-color: #672515;}
 <body>
 
 <?php
+session_start();
 if(isset($_POST['Yes'])){
   $con = mysql_connect("localhost","root","1");
   mysql_select_db("test", $con);
-  $query = 'DELETE FROM content WHERE `id` = "' . $_GET['id'] . '"';
+  $query = 'DELETE FROM users WHERE `login` = ' . $_SESSION['login'];
   mysql_query($query) or die(mysql_error());
   mysql_close($con);
-  print '<meta http-equiv="refresh" content="0; url=kontent.php">';
+  print '<meta http-equiv="refresh" content="0; url=user.php">';
+  session_unset();
 }
 elseif(isset($_POST['No'])){
-  print '<meta http-equiv="refresh" content="0; url=kontent.php">';
+  print '<meta http-equiv="refresh" content="0; url=<a href="user.php?id=' . $_SESSION['login'] . '">' . $_SESSION['login'] . '</a>"';
 }
 ?>
 
 <ins><a href="index.php">Home</a><br /><br /></ins>
 <p>Are you sure?</p>
-<form action="del.php?id=<?php print $_GET['id']?>" method="post">
+<form action="delete_user.php?id=<?php print $_SESSION['login']?>" method="post">
 <p><input type="submit" name="Yes" value="Yes" /><input type="submit" name="No" value="No" /></p>
 </form>
 </body>

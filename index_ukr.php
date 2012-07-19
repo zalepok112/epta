@@ -28,7 +28,11 @@ session_start();
     mysql_select_db ("test",$db);
     $query = 'SELECT * FROM users WHERE `password`="' . $_SESSION['password'] . '"';
     
-        if ($_SESSION['role'] == 3) {
+        if ($_SESSION['role'] == 4) {
+           print '<ins><a href="exit.php"> Exit</a><br /><br /></ins>
+                   <ins><a href="user_ukr.php?id=' . $_SESSION['login'] . '">' . $_SESSION['login'] . ' - Ви заблоковані!</a></ins>';
+        }
+        elseif ($_SESSION['role'] == 3) {
             print '<ins><a href="adminka_ukr.php"> Адмінка</a></ins>
                    <ins><a href="kontent_ukr.php"> Контент</a></ins>
                    <ins><a href="exit.php"> Вихід</a></ins>
@@ -41,7 +45,7 @@ session_start();
         }
         elseif ($_SESSION['role'] == 1) {
             print '<ins><a href="exit.php"> Вихід</a></ins>
-                   <p>Користувач <br /><br /></p>';
+                   <ins><a href="user.php?id=' . $_SESSION['login'] . '">' . $_SESSION['login'] . '</a></ins>';
         }
         
     else {

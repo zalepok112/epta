@@ -14,11 +14,11 @@ body {background-color: #672515;}
 <?php
 $con = mysql_connect("localhost","root","1");
 mysql_select_db("test", $con);
-$query = 'SELECT * FROM users WHERE `id` = ' .$_GET['id'];
+$query = 'SELECT * FROM users WHERE `id` = "' . $_GET['id'] . '"';
 $result = mysql_query($query) or die(mysql_error());
 $row = mysql_fetch_assoc($result);
 if(isset($_POST['submit'])){
-  $query = 'UPDATE users SET login="' . $_POST['login'] . '", password="' . $_POST['password'] . '" WHERE `id` = ' .$_GET['id'];
+  $query = 'UPDATE users SET role="' . $_POST['role'] . '" WHERE `id` = ' .$_GET['id'];
   mysql_query($query) or die(mysql_error());
   print '<meta http-equiv="refresh" content="0; url=adminka.php">';
 }
@@ -27,9 +27,18 @@ mysql_close($con);
 
 
 <ins><a href="index.php">Home</a><br /><br /></ins>
-<form action="edit.php" method="post">
-<p><input type="text" name="login" value="<?php print $row['login']?>" /><br /></p>
-<input type="text" name="password" value="<?php print $row['password']?>" /><br /></p>
+<p>
+<label>Time of registration:<br /></label>
+<?php print $row['time']?><br /><br />
+</p>
+<p>
+<label>Last time was online:<br /></label>
+<?php print $row['time2']?><br /><br />
+</p>
+<form action="edit.php?id=<?php print $_GET['id']?>" method="post">
+<p>
+<label>User's role:<br /></label>
+<input type="text" name="role" value="<?php print $row['role']?>" /><br />
 <p><br /><input type="submit" name="submit" value="Save" /></p>
 </form>
 </body>

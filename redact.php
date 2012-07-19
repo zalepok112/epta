@@ -25,7 +25,7 @@ mysql_close($con);
 ?>
 
 <ins><a href="index.php">Home</a><br /><br /></ins>
-<form action="redact.php" method="post">
+<form action="redact.php?id=<?php print $_GET['id']?>" method="post">
 <p><input type="text" name="title" value="<?php print $row['title']?>" /><br /></p>
 <p><textarea name="text" cols="150" rows="15" maxlehgth="1500" ><?php print $row['text']?></textarea></p>
 <p><br /><input type="submit" name="submit" value="Save" />

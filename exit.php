@@ -9,9 +9,7 @@
 
 <?php
 session_start(); 
-          $_SESSION['login'] = NULL;
-          $_SESSION['password'] = NULL;
-          $_SESSION['role'] = 0;
+session_unset();
           print '<meta http-equiv="refresh" content="0; url=index.php">';
 ?>
 

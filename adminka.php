@@ -16,7 +16,8 @@ body {background-color: #672515;}
     $query = 'SELECT * FROM users';
     $result = mysql_query($query) or die(mysql_error());
     while ($row = mysql_fetch_assoc($result)) {
-      print '<p>id: ' . $row['id'] . ' User: ' . $row['login'] . ' Rights: ' . $row['role'] . '<a href="delete.php?id=' . $row['id'] . '"> Delete </a><a href="edit.php?id=' . $row['id'] . '"> Edit </a><br /></p>';
+      print '<p>id: ' . $row['id'] . ' User: ' . $row['login'] . ' Rights: ' . $row['role'] . ' email: ' . $row['email'] . '
+      <a href="delete.php?id=' . $row['id'] . '"> Delete </a><a href="edit.php?id=' . $row['id'] . '"> Edit </a><br /></p>';
     }
 ?>
 

@@ -25,7 +25,7 @@ mysql_close($con);
 ?>
 
 <ins><a href="index_ukr.php">Home</a><br /><br /></ins>
-<form action="redact_ukr.php" method="post">
+<form action="redact_ukr.php?id=<?php print $_GET['id']?>" method="post">
 <p><input type="text" name="title" value="<?php print $row['title']?>" /><br /></p>
 <textarea name="text" cols="150" rows="15" maxlehgth="1500" ><?php print $row['text']?></textarea>
 <p><br /><input type="submit" name="submit" value="Зберегти" />
