@@ -31,7 +31,7 @@ P.big1     {font-family: Tahoma; font-style: normal; text-align: center; text-de
 <?php
 session_start();
     $bd = new PDO('mysql:host=localhost;dbname=test', 'root', '1'); 
-    $sel = $bd->query('SELECT * FROM `users` WHERE `password`="' . $_SESSION['login'] . '"');
+    $sel = $bd->query('SELECT * FROM `users` WHERE `password`="' . $_SESSION['password'] . '"');
      
         if ($_SESSION['role'] == 4) {
            print '<ins><a href="exit.php"> Exit</a><br /><br /></ins>
