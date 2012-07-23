@@ -7,6 +7,7 @@
 <style type="text/css">
 body {background-color: #672515;}
 P.olo {float: right;}
+P.middle   {text-align: justify; font-size: 18; font-family: Tahoma; text-indent: 30; font-style: normal; color: #eeccaa; line-height: 25px;}
 </style>
 </head>
 <body>
@@ -18,11 +19,11 @@ $sel = $bd->query('SELECT * FROM users WHERE `login`="' . $_SESSION['login'] . '
 $row = $sel->fetch(PDO::FETCH_ASSOC);
 if(isset($_POST['submit'])){
   
-  $update = $bd->exec('UPDATE users SET login="' . $_POST['login'] . '", password="' . $_POST['password'] . '", email="' . $_POST['email'] . '",
+  $update = $bd->exec('UPDATE users SET password="' . $_POST['password'] . '", email="' . $_POST['email'] . '",
             name="' . $_POST['name'] . '", surname="' . $_POST['surname'] . '", date="' . $_POST['date'] . '"
             WHERE `login` = "' . $_SESSION['login'] . '"');
   $bd = NULL;
-  print 'Зміни збережено';
+  print 'Changes are confirmed';
   print '<meta http-equiv="refresh" content="0; url=index.php">';
   }
   
@@ -35,16 +36,15 @@ if(isset($_POST['submit'])){
     <label>Time of registration:<br /></label>
     <?php print $row['time']?><br /><br />
     </p>
-    <h2>Your account</h2>
+    <h2>
+    <?php print $row['login']?>
+    
+    </h2>
     <p class="olo">
-    <img src="images/<?php print $row['login']?>.jpg" />
+    <img src="images/<?php print $row['login']?>.jpg" alt="" />
     </p>
     
     <form action="user.php?id=<?php print $row['login']?>" method="post">
-    <p>
-    <label>Login:<br /></label>
-    <input name="login" type="text" value="<?php print $row['login']?>"  />
-    </p>
     <p>
     <label>Password:<br /></label>
     <input name="password" type="text" value="<?php print $row['password']?>"  />

@@ -64,7 +64,7 @@ session_start();
       $rest = substr($row['text'], 0, 150);
        if (substr($rest, -1) != ' ') {
         $rest = substr($rest, 0, strrpos($rest, ' '));
-      print '<h2><p class="middle"><a href="article.php?id=' . $row['id'] . '">' . $row['title'] . '</a></p></h2>
+      print '<p class="middle"><a href="article.php?id=' . $row['id'] . '">' . $row['title'] . '</a></p>
              <p class="middle">' .  $rest . '</p>';
       }
     }
@@ -72,9 +72,9 @@ session_start();
 ?>
 
 
-<h1><p class="big">
+<p class="big">
 The Formation of Sitch
-</p></h1>
+</p>
 
 <p class="picture">
 <img src="sich_mal1.gif" alt="" />

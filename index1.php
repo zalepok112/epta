@@ -65,7 +65,7 @@ session_start();
       $rest = substr($row['text'], 0, 150);
        if (substr($rest, -1) != ' ') {
         $rest = substr($rest, 0, strrpos($rest, ' '));
-      print '<h2><p class="middle"><a href="article.php?id=' . $row['id'] . '">' . $row['title'] . '</a><br /></p></h2>
+      print '<p class="middle"><a href="article.php?id=' . $row['id'] . '">' . $row['title'] . '</a><br /></p>
              <p class="middle">' .  $rest . '<br /><br /></p>';
       }
     }
@@ -73,9 +73,9 @@ session_start();
 ?>
 
 
-<h1><p class="big">
+<p class="big">
 Organisation and government
-</p></h1>
+</p>
 
 <p class="picture1">
 <img src="sich_mal2.gif" />
