@@ -1,0 +1,3 @@
+[submodule "epta"]
+	path = epta
+	url = git://github.com/zalepok112/epta.git
