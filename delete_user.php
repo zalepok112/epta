@@ -16,11 +16,11 @@ if(isset($_POST['Yes'])){
   $bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
   $del = $bd->exec('DELETE FROM users WHERE `login` = "' . $_SESSION['login'] . '"');
   $bd = NULL;
-  print '<meta http-equiv="refresh" content="0; url=user.php">';
+  print '<meta http-equiv="refresh" content="0; url=index.php">';
   session_unset();
 }
 elseif(isset($_POST['No'])){
-  print '<meta http-equiv="refresh" content="0; url=<a href="user.php?id=' . $_SESSION['login'] . '">' . $_SESSION['login'] . '</a>"';
+  print '<meta http-equiv="refresh" content="0; url=user.php?id=' . $_SESSION['login'] . '">' . $_SESSION['login'] . '</a>"';
 }
 ?>
 

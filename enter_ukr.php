@@ -12,7 +12,9 @@ body {background-color: #672515;}
     
 <?php
     session_start();
-    if (isset($_POST['submit']) && !empty($_POST['login']) && !empty($_POST['password'])){
+    if (isset($_POST['submit'])) {
+        if (!empty($_POST['login']) && !empty($_POST['password']))
+        {
         $bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
         $id_dates2 = date('Y-m-d H:i:s');
         $update = $bd->exec('UPDATE users SET time2 = "' . $id_dates2 . '" WHERE `login` = "' . $_POST['login'] . '"');
@@ -32,6 +34,10 @@ body {background-color: #672515;}
         else {
              print '<P> Неправльний логін чи пароль! </P>';
         }        
+    }
+    else {
+        print '<p> Заповніть всі поля! </p>';
+    }
     }
 ?>
 

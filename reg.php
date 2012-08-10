@@ -19,10 +19,10 @@ if (isset($_POST['submit'])){
           $row = $sel->fetch(PDO::FETCH_ASSOC);
          
           if ($_POST['password'] !== $_POST['pass'])  {
-           exit ("Incorrect password");    
+           exit ("<p>Incorrect password</p>");    
           }
           if (!empty($row['id'])) {
-          exit ("Sorry, this login has already used!");
+          exit ("<p>Sorry, this login has already used!</p>");
           }
           
 function generate_resized_image(){
@@ -33,8 +33,6 @@ $postvars = array(
 "image"    => trim($_FILES["image"]["name"]),
 "image_tmp"    => $_FILES["image"]["tmp_name"],
 "image_size"    => (int)$_FILES["image"]["size"]
-//"image_max_width"    => (int)$_POST["image_max_width"],
-//"image_max_height"   => (int)$_POST["image_max_height"]
 );
 // Array of valid extensions.
 $valid_exts = array("jpg","jpeg","gif","png");
@@ -70,10 +68,10 @@ return "<strong></strong><br/>
 imagedestroy($image);
 imagedestroy($tmp);
 } else {
-return "File size too large. Max allowed file size is 175kb.";
+exit ('You dont download an image or its size is bigger than 175 Kb!');
 }
 } else {
-return "Invalid file type. You must upload an image file. (jpg, jpeg, gif, png).";
+exit ('Invalid file type. You must upload an image file. (jpg, jpeg, gif, png).');
 }
 }
 if(isset($_GET["do"])){
@@ -85,13 +83,13 @@ $upload_and_resize = "";
 } else {
 $upload_and_resize = "";
 }
- echo $upload_and_resize;
+ 
           $id_dates = date('Y-m-d H:i:s');
           $insert = $bd->exec('INSERT INTO users (id, login, password, role, email, time) VALUES (NULL, "' . $_POST['login'] . '", "' . $_POST['password'] . '", 1,
           "' . $_POST['email'] . '", "' . $id_dates . '")');
          }
          else {
-         print 'Please, enter all fields!'; 
+         exit ('<p>Please, enter all fields!</p>'); 
          }
 if ($insert)
 {    
@@ -109,7 +107,7 @@ if ($insert)
 <ins><a href="reg.php"><img src="images/gb.png" alt="" /></a></ins>
 <ins><a href="index.php">Home</a></ins>  
     <h2>Registration</h2>
-    <form action="./reg.php?do=upload" method="post" enctype="multipart/form-data">
+    <form action="reg.php?do=upload" method="post" enctype="multipart/form-data">
     <p>
     <label>Login:<br /></label>
     <input name="login" type="text" size="15" maxlength="15" />

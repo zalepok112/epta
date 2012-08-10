@@ -15,10 +15,10 @@ if(isset($_POST['Yes'])){
   $bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
   $del = $bd->exec('DELETE FROM vote WHERE `id_vote` = "' . $_GET['id'] . '"');
   $bd = NULL;
-  print '<meta http-equiv="refresh" content="0; url=index_ukr.php">';
+  print '<meta http-equiv="refresh" content="0; url=article_ukr.php?id=' . $row['id_content'] . '.php">';
 }
 elseif(isset($_POST['No'])){
-  print '<meta http-equiv="refresh" content="0; url=index_ukr.php">';
+  print '<meta http-equiv="refresh" content="0; url=article_ukr.php?id=' . $row['id_content'] . '.php">';
 }
 ?>
 

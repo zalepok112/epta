@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
             WHERE `login` = "' . $_SESSION['login'] . '"');
   $bd = NULL;
   print 'Зміни збережено';
-  print '<meta http-equiv="refresh" content="0; url=index_ukr.php">';
+  print '<meta http-equiv="refresh" content="0; url=user_ukr.php?id=' . $_SESSION['login'] . '">';
   }
   
 ?>
@@ -43,7 +43,7 @@ if(isset($_POST['submit'])){
     <img src="images/<?php print $row['login']?>.jpg" alt="" />
     </p>
     
-    <form action="user.php?id=<?php print $row['login']?>" method="post">
+    <form action="user_ukr.php?id=<?php print $row['login']?>" method="post">
     <p>
     <label>Пароль:<br /></label>
     <input name="password" type="text" value="<?php print $row['password']?>"  />

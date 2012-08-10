@@ -11,14 +11,17 @@ body {background-color: #672515;}
 <body>
 
 <?php
+$bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
+  $sel = $bd->query('SELECT * FROM `comment` WHERE `id_com` = "' . $_GET['id'] . '"');
+  $row = $sel->fetch(PDO::FETCH_ASSOC);
 if(isset($_POST['Yes'])){
   $bd = new PDO ('mysql:host=localhost;dbname=test', 'root', '1');
   $del = $bd->exec('DELETE FROM comment WHERE `id_com` = "' . $_GET['id'] . '"');
   $bd = NULL;
-  print '<meta http-equiv="refresh" content="0; url=index_ukr.php">';
+  print '<meta http-equiv="refresh" content="0; url=article_ukr.php?id=' . $row['id_content'] . '.php">';
 }
 elseif(isset($_POST['No'])){
-  print '<meta http-equiv="refresh" content="0; url=index_ukr.php">';
+  print '<meta http-equiv="refresh" content="0; url=article_ukr.php?id=' . $row['id_content'] . '.php">';
 }
 ?>
 

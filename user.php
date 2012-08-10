@@ -23,22 +23,21 @@ if(isset($_POST['submit'])){
             name="' . $_POST['name'] . '", surname="' . $_POST['surname'] . '", date="' . $_POST['date'] . '"
             WHERE `login` = "' . $_SESSION['login'] . '"');
   $bd = NULL;
-  print 'Changes are confirmed';
-  print '<meta http-equiv="refresh" content="0; url=index.php">';
+  print '<meta http-equiv="refresh" content="0; url=user.php?id=' . $_SESSION['login'] . '">';
+  print '<p>Changes are saved</p>';
   }
   
 ?>
-<p class="olo"><ins><a href="delete_user.php?id=<?php print $row['login']?>">Delete your account</a></ins></p>
+<p class="olo"><ins><a href="delete_user_ukr.php?id=<?php print $row['login']?>">Видалити ваш аккаунт</a></ins></p>
 <ins><a href="user_ukr.php"><img src="images/ua.png" alt="" /></a></ins>
 <ins><a href="user.php"><img src="images/gb.png" alt="" /></a></ins>
 <ins><a href="index.php">Home</a></ins>  
     <p>
-    <label>Time of registration:<br /></label>
+    <label>Date of registration:<br /></label>
     <?php print $row['time']?><br /><br />
     </p>
     <h2>
     <?php print $row['login']?>
-    
     </h2>
     <p class="olo">
     <img src="images/<?php print $row['login']?>.jpg" alt="" />
@@ -62,7 +61,7 @@ if(isset($_POST['submit'])){
     <input name="surname" type="text" value="<?php print $row['surname']?>"/>
     </p>
     <p>
-    <label>Date of birth:<br /></label>
+    <label>Date of the birth:<br /></label>
     <input name="date" type="text" value="<?php print $row['date']?>"/>
     </p>
     <p>

@@ -31,6 +31,7 @@ if (isset($_POST['submit'])){
         $title = substr($title, 0, strrpos($title, ' '));
         }
     }
+    $_POST['koment'] = htmlspecialchars($_POST['koment']);
     $insert = $bd->exec('INSERT INTO `comment` (`id_com`, `id_content`, `login`, `title`, `koment`, `lang`) VALUES (NULL, "' . $row1['id'] . '", "' . $_SESSION['login'] . '",
                         "' . $title . '", "' . $_POST['koment'] . '", "eng")');
     $update = $bd->exec('UPDATE comment SET time = "' . $time . '" WHERE `koment` = "' . $_POST['koment'] . '"');

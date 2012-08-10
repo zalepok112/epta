@@ -70,10 +70,10 @@ return "<strong></strong><br/>
 imagedestroy($image);
 imagedestroy($tmp);
 } else {
-return "Файл завеликий. Максимальний розмір 175kb.";
+exit ("Ви не завантажили зображення або воно перевищує максимальний розмір - 175kb.");
 }
 } else {
-return "Невідомий тип зображення. Ви маєте завантажувати: (jpg, jpeg, gif, png).";
+exit ("Невідомий тип зображення. Ви маєте завантажувати: (jpg, jpeg, gif, png).");
 }
 }
 if(isset($_GET["do"])){
@@ -85,13 +85,13 @@ $upload_and_resize = "";
 } else {
 $upload_and_resize = "";
 }
- echo $upload_and_resize;
+ 
           $id_dates = date('Y-m-d H:i:s');
           $insert = $bd->exec ('INSERT INTO users (id, login, password, role, email, time) VALUES (NULL, "' . $_POST['login'] . '", "' . $_POST['password'] . '", 1,
           "' . $_POST['email'] . '", "' . $id_dates . '")');
          }
          else {
-         print 'Please, enter all fields!'; 
+         exit ('Заповніть всі поля!'); 
          }
 if ($insert)
 {    
